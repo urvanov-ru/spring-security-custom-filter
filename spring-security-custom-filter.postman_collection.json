@@ -1,0 +1,25 @@
+{
+	"info": {
+		"_postman_id": "cfd0836d-4682-4acc-ad4f-c5a8ebc9abd6",
+		"name": "spring-security-custom-filter",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "main",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "login",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		}
+	]
+}

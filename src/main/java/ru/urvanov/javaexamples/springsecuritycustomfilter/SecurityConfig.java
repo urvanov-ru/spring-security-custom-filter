@@ -5,33 +5,20 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
-import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 import org.springframework.security.web.context.DelegatingSecurityContextRepository;
 import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
 import org.springframework.security.web.context.RequestAttributeSecurityContextRepository;
 import org.springframework.security.web.context.SecurityContextRepository;
-import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
 public class SecurityConfig {
-    @Bean
-    public UserDetailsService userDetailsService() {
-            UserDetails user = User.withDefaultPasswordEncoder()
-                    .username("user")
-                    .password("password")
-                    .roles("USER")
-                    .build();
-            return new InMemoryUserDetailsManager(user);
-    }
     
     @Bean
     public RequestAttributeSecurityContextRepository requestAttributeSecurityContextRepository() {
@@ -50,6 +37,16 @@ public class SecurityConfig {
         return new DelegatingSecurityContextRepository(
                 requestAttributeSecurityContextRepository,
                 httpSessionSecurityContextRepository);
+    }
+    
+    @Bean
+    public UserDetailsService userDetailsService() {
+            UserDetails user = User.withDefaultPasswordEncoder()
+                    .username("user")
+                    .password("password")
+                    .roles("USER")
+                    .build();
+            return new InMemoryUserDetailsManager(user);
     }
     
     @Bean
@@ -76,9 +73,7 @@ public class SecurityConfig {
     
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http,
-            CustomAuthenticationProcessingFilter customAuthenticationProcessingFilter,
-            AuthenticationManager authenticationManager,
-            SecurityContextRepository securityContextRepository) throws Exception {
+            AuthenticationManager authenticationManager) throws Exception {
         
         http
             .authenticationManager(authenticationManager)

@@ -19,24 +19,10 @@ import org.springframework.security.web.context.SecurityContextRepository;
 
 @Configuration
 public class SecurityConfig {
-    
+
     @Bean
-    public RequestAttributeSecurityContextRepository requestAttributeSecurityContextRepository() {
-        return new RequestAttributeSecurityContextRepository();
-    }
-    
-    @Bean
-    public HttpSessionSecurityContextRepository httpSessionSecurityContextRepository() {
+    public HttpSessionSecurityContextRepository securityContextRepository() {
         return new HttpSessionSecurityContextRepository();
-    }
-    
-    @Bean
-    public DelegatingSecurityContextRepository securityContextRepository(
-            RequestAttributeSecurityContextRepository requestAttributeSecurityContextRepository,
-            HttpSessionSecurityContextRepository httpSessionSecurityContextRepository) {
-        return new DelegatingSecurityContextRepository(
-                requestAttributeSecurityContextRepository,
-                httpSessionSecurityContextRepository);
     }
     
     @Bean
